@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, Vibration, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Button } from 'react-native-paper';
 
 export default function TodoItem(props) {
     const ONE_SECOND_IN_MS = 100;
@@ -9,7 +10,7 @@ export default function TodoItem(props) {
         2 * ONE_SECOND_IN_MS,
         3 * ONE_SECOND_IN_MS
     ];
-
+    const [changed, setChanged] = useState(false);
     return (
         <>
             <TouchableOpacity style={{ marginTop: 50 }} onPress={() => {
@@ -21,6 +22,10 @@ export default function TodoItem(props) {
                     <MaterialIcons name="delete" size={18} color='red' />
                     <Text style={styles.itemtext}>  {props.item.text}</Text>
                 </View>
+                <Button onPress={() => {
+                    props.checkItem(props.item);
+                    setChanged(!changed);
+                }}>{changed ? "checked" : "no checked"}</Button>
             </TouchableOpacity>
         </>
     )

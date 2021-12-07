@@ -73,38 +73,18 @@ export default function App() {
   }, [])
 
   const checkItem = (item) => {
-    let chck = todos.map((e) => {
-      if (e.id === item.id) {
-        e.checkDone = !e.checkDone
+    todos.map((secondItem) => {
+      if (secondItem.id === item.id) {
+        secondItem.checkDone = !secondItem.checkDone;
       }
-      return e;
-    })
-    setTodos(chck)
-    console.log(chck)
+
+    });
+
+    console.log(todos);
   }
-  const [visible, setVisible] = React.useState(false);
-
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
-
-  const containerStyle = { backgroundColor: 'white', padding: 20, width: 300 };
   return (
     <>
       <Provider>
-        <Portal>
-          <Modal visible={visible} onDismiss={hideModal} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} contentContainerStyle={containerStyle}>
-            <View style={styles.button}>
-              <Button icon="content-save-edit" mode="contained">
-                Edit
-              </Button>
-            </View>
-            <View style={styles.button}>
-              <Button icon="check-circle" mode="contained" onPress={() => checkItem(item)}>
-                {checkDone ? console.log("gauqmda monishvna") : console.log("moinishna")}
-              </Button>
-            </View>
-          </Modal>
-        </Portal>
         <View style={styles.container}>
           <SafeAreaView>
             <Header />
@@ -124,7 +104,7 @@ export default function App() {
                   <FlatList
                     data={todos}
                     renderItem={({ item }) => (
-                      <TodoItem setVisible={setVisible} item={item} deleteItem={deleteItem} checkItem={checkItem} />
+                      <TodoItem item={item} deleteItem={deleteItem} checkItem={checkItem} />
                     )}
                   />
                 </View>
